@@ -1,7 +1,5 @@
 ﻿
-using System.Diagnostics.Contracts;
-using System.Net.WebSockets;
-using System.Runtime.InteropServices;
+
 
 Factory factoryA = new FactoryA();
 Product productA = factoryA.CreateProduct();
