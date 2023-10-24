@@ -1,38 +1,52 @@
-﻿using System.Dynamic;
-using System.Net.Security;
+﻿using System;
 
 public class Program
 {
-
-    public interface IOperation
+    public interface IExercise
     {
-
-
-        public int Calculation(int num1, int num2);
-
+        void Exercise();
     }
-    public class AddOperation : IOperation {
-        public int Calculation(int num1, int num2) { return num1 + num2; }
-    }
-    public class SubtractOperation : IOperation
+
+    public class Run : IExercise
     {
-        public int Calculation(int num1, int num2) { return num1 - num2; }
+        public void Exercise()
+        {
+            Console.WriteLine("Running");
+        }
     }
-    public class OperationContext{
-        IOperation _operation;
-       
-        public IOperation Operation { set => _operation = value; }
-        public int ExcuteCalculation(int num1,int num2) { return  _operation.Calculation(num1, num2); }
+
+    public class Walk : IExercise
+    {
+        public void Exercise()
+        {
+            Console.WriteLine("Walking");
+        }
     }
+
+    public class Workout
+    {
+        private IExercise _exercise;
+
+        public IExercise Exercise
+        {
+            set => _exercise = value;
+        }
+
+        public void DoExercise()
+        {
+            _exercise?.Exercise();
+        }
+    }
+
     private static void Main(string[] args)
     {
-        OperationContext add = new OperationContext();
-        add.Operation = new AddOperation();
-    
-        int res = add.ExcuteCalculation(1, 2);
         
-       
-     Console.WriteLine(res);
+        Workout workout = new Workout { Exercise = new Run()};
 
+        workout.DoExercise();
+        workout.Exercise= new Walk();
+
+        workout.DoExercise();
+     
     }
 }
